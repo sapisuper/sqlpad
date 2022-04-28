@@ -144,8 +144,10 @@ async function deleteUser(req, res) {
   return res.utils.data();
 }
 
-
+router.get('/api/users', mustBeAuthenticated, wrap(listUsers));
 router.post('/api/users', mustBeAdmin, wrap(createUser));
+router.get('/api/users/:id', mustBeAuthenticated, wrap(getUser));
+router.put('/api/users/:id', mustBeAuthenticated, wrap(updateUser));
 router.delete('/api/users/:id', mustBeAdmin, wrap(deleteUser));
 
 module.exports = router;

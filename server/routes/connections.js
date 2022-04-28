@@ -90,6 +90,7 @@ async function deleteConnection(req, res) {
   return res.utils.data();
 }
 
+router.get('/api/connections', mustBeAdmin, wrap(listConnections));
 router.get('/api/connections/:id', mustBeAdmin, wrap(getConnection));
 router.post('/api/connections', mustBeAdmin, wrap(createConnection));
 router.put('/api/connections/:id', mustBeAdmin, wrap(updateConnection));
