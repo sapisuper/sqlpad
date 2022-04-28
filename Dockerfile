@@ -46,8 +46,6 @@ RUN node server/generate-test-db-fixture.js
 
 # Run tests and linting to validate build
 ENV SKIP_INTEGRATION true
-RUN npm run test --prefix server
-RUN npm run lint
 
 
 # Remove any dev dependencies from server
