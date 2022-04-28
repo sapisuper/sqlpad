@@ -1,7 +1,7 @@
 require('../typedefs');
 const router = require('express').Router();
 const mustBeAdmin = require('../middleware/must-be-admin');
-const mustBeAuthenticated = require('../middleware/must-be-authenticated');
+//const mustBeAuthenticated = require('../middleware/must-be-authenticated');
 const wrap = require('../lib/wrap');
 
 function cleanUser(req, user) {
@@ -144,10 +144,10 @@ async function deleteUser(req, res) {
   return res.utils.data();
 }
 
-router.get('/api/users', mustBeAuthenticated, wrap(listUsers));
+router.get('/api/users', mustBeAdmin, wrap(listUsers));
 router.post('/api/users', mustBeAdmin, wrap(createUser));
-router.get('/api/users/:id', mustBeAuthenticated, wrap(getUser));
-router.put('/api/users/:id', mustBeAuthenticated, wrap(updateUser));
+router.get('/api/users/:id', mustBeAdmin, wrap(getUser));
+router.put('/api/users/:id', mustBeAdmin, wrap(updateUser));
 router.delete('/api/users/:id', mustBeAdmin, wrap(deleteUser));
 
 module.exports = router;
