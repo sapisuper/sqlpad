@@ -7,8 +7,12 @@ const consts = require('../lib/consts');
 
 function removePassword(connection) {
   connection.password = '';
-  if (connection.data && connection.data.password) {
+  connection.username = '';
+  connection.host = '';
+  if (connection.data && connection.data.password && connection.data.username && connection.data.host) {
     connection.data.password = '';
+    connection.data.username = '';
+    connection.data.host = '';
   }
   return connection;
 }
@@ -25,6 +29,7 @@ async function listConnections(req, res) {
     models.connections.findAll(),
     models.connectionAccesses.findAllActiveByUserId(req.user.id),
   ]);
+
   // Admins have access to all connections.
   if (req.user.role !== 'admin') {
     // map access to a set of connection ids
@@ -35,7 +40,7 @@ async function listConnections(req, res) {
       connections = connections.filter((e) => access.has(e.id));
     }
   }
-  return res.utils.data(removePassword(connections, access));
+  return res.utils.data(removePassword(connections));
 }
 
 /**

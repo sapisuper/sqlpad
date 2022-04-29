@@ -80,9 +80,6 @@ ENV NODE_ENV production
 ENV SQLPAD_DB_PATH /var/lib/sqlpad
 ENV SQLPAD_PORT 3000
 
-#ENV SQLPAD_ADMIN "admin"
-#ENV SQLPAD_ADMIN_PASSWORD "admin" 
-
 EXPOSE 3000
 ENTRYPOINT ["/docker-entrypoint"]
 

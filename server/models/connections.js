@@ -3,6 +3,18 @@ const Cryptr = require('cryptr');
 const drivers = require('../drivers');
 const validateConnection = require('../lib/validate-connection');
 
+function removePassword(connection) {
+  connection.password = '';
+  connection.username = '';
+  connection.host = '';
+  if (connection.data && connection.data.password && connection.data.username && connection.data.host) {
+    connection.data.password = '';
+    connection.data.username = '';
+    connection.data.host = '';
+  }
+  return connection;
+}
+
 class Connections {
   /**
    * @param {import('../sequelize-db')} sequelizeDb
@@ -69,7 +81,7 @@ class Connections {
 
     const allConnections = connectionsFromDb
       .concat(this.config.getConnections())
-      .map((connection) => this.decorateConnection(connection));
+      .map((connection) => this.decorateConnection(removePassword(connection)));
 
     return _.sortBy(allConnections, (c) => c.name.toLowerCase());
   }
