@@ -1,7 +1,7 @@
 require('../typedefs');
 const router = require('express').Router();
 const mustBeAdmin = require('../middleware/must-be-admin');
-//const mustBeAuthenticated = require('../middleware/must-be-authenticated');
+const mustBeAuthenticated = require('../middleware/must-be-authenticated');
 const wrap = require('../lib/wrap');
 const consts = require('../lib/consts');
 
@@ -35,7 +35,7 @@ async function listConnections(req, res) {
       connections = connections.filter((e) => access.has(e.id));
     }
   }
-  return res.utils.data(connections);
+  return res.utils.data(removePassword(connections));
 }
 
 /**
@@ -90,7 +90,7 @@ async function deleteConnection(req, res) {
   return res.utils.data();
 }
 
-router.get('/api/connections', mustBeAdmin, wrap(listConnections));
+router.get('/api/connections', mustBeAuthenticated, wrap(listConnections));
 router.get('/api/connections/:id', mustBeAdmin, wrap(getConnection));
 router.post('/api/connections', mustBeAdmin, wrap(createConnection));
 router.put('/api/connections/:id', mustBeAdmin, wrap(updateConnection));
