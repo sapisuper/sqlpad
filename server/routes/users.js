@@ -110,7 +110,7 @@ async function updateUser(req, res) {
     passwordResetId,
     name,
     email,
-    //data,
+    data,
     disabled,
     syncAuthRole,
     ldapId,
