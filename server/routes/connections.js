@@ -35,7 +35,7 @@ async function listConnections(req, res) {
       connections = connections.filter((e) => access.has(e.id));
     }
   }
-  return res.utils.data(removePassword(connections));
+  return res.utils.data(removePassword(connections, access));
 }
 
 /**

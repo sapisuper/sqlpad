@@ -46,8 +46,6 @@ RUN node server/generate-test-db-fixture.js
 
 # Run tests and linting to validate build
 ENV SKIP_INTEGRATION true
-RUN npm run test --prefix server
-RUN npm run lint
 
 
 # Remove any dev dependencies from server
@@ -81,6 +79,10 @@ COPY --from=build /sqlpad/server .
 ENV NODE_ENV production
 ENV SQLPAD_DB_PATH /var/lib/sqlpad
 ENV SQLPAD_PORT 3000
+
+#ENV SQLPAD_ADMIN "admin"
+#ENV SQLPAD_ADMIN_PASSWORD "admin" 
+
 EXPOSE 3000
 ENTRYPOINT ["/docker-entrypoint"]
 
